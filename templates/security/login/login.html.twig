@@ -15,6 +15,11 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password">
 
+        <label>
+            <input type="checkbox" name="_remember_me">
+            Keep me logged in for 15 minutes
+        </label>
+
         <input type="hidden" name="_target_path" value="/">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
