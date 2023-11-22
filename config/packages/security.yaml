@@ -17,10 +17,20 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
             form_login:
                 login_path: login
                 check_path: login
                 enable_csrf: true
+            logout:
+                path: app_logout
+                target: home
+            login_throttling:
+                max_attempts: 5
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 900 # 15 minutes
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

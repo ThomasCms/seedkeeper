@@ -19,7 +19,7 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('login/index.html.twig', [
+        return $this->render('security/login/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
