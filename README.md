@@ -1,0 +1,5 @@
+### WIP ###
+
+dependencies :
+- docker
+- npm
