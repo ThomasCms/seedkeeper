@@ -11,8 +11,6 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('register') }}">
-
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
