@@ -2,7 +2,7 @@
 
 {% block title %}Hello LoginController!{% endblock %}
 
-{% block body %}
+{% block body_content %}
     {% if error %}
         {# AuthenticationException error.message may contain sensitive informations. Never use it #}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
