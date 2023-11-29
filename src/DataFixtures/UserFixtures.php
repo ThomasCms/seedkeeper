@@ -11,14 +11,14 @@ class UserFixtures extends Fixture
 {
     private const DEFAULT_PASSWORD = 'testtest';
 
-    private $passwordHasherFactory;
+    private PasswordHasherFactoryInterface $passwordHasherFactory;
 
     public function __construct(PasswordHasherFactoryInterface $encoderFactory)
     {
         $this->passwordHasherFactory = $encoderFactory;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $user = new User();
         $user->setEmail('admin@gmail.com');

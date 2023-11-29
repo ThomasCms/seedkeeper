@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -29,6 +31,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Seed::class, orphanRemoval: true)]
+    private Collection $seeds;
+
+    public function __construct()
+    {
+        $this->seeds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,6 +117,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Seed>
+     */
+    public function getSeeds(): Collection
+    {
+        return $this->seeds;
+    }
+
+    public function addSeed(Seed $seed): static
+    {
+        if (!$this->seeds->contains($seed)) {
+            $this->seeds->add($seed);
+            $seed->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeed(Seed $seed): static
+    {
+        if ($this->seeds->removeElement($seed)) {
+            if ($seed->getOwner() === $this) {
+                $seed->setOwner(null);
+            }
+        }
 
         return $this;
     }

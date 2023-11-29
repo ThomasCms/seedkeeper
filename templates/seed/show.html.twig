@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seed{% endblock %}
+
+{% block body_content %}
+    <h1>Seed</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Text</th>
+                <td>{{ seed.text }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('seed_index') }}">back to list</a>
+
+    <a href="{{ path('edit_seed', {'id': seed.id}) }}">edit</a>
+
+    {{ include('seed/_delete_form.html.twig') }}
+{% endblock %}

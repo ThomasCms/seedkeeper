@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seed index{% endblock %}
+
+{% block body_content %}
+    <h1>Seed index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for seed in seeds %}
+            <tr>
+                <td>{{ seed.text }}</td>
+                <td>
+                    <a href="{{ path('show_seed', {'id': seed.id}) }}">show</a>
+                    <a href="{{ path('edit_seed', {'id': seed.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('new_seed') }}">Create new</a>
+{% endblock %}
