@@ -1,15 +1,26 @@
 <nav class="bg-slate-800 fixed w-full z-100 top-0 left-0 border-gray-600 flex items-center justify-between flex-wrap h-[5vh]">
     <div class="ml-6 flex-10 items-center flex-shrink-0 text-white mr-6">
         <a href="{{ path('home') }}" class="font-semibold text-xl tracking-tight">SeedKeeper</a>
-        <a href="{{ path('seed_index') }}" class="ml-6 tracking-tight">My Seeds</a>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a href="{{ path('seed_index') }}" class="ml-6 tracking-tight">My Seeds</a>
+        {% endif %}
     </div>
 
     <div class="mr-6 flex-1 block flex-grow lg:flex lg:items-center lg:w-auto text-white">
-        <a href="{{ path('profile') }}" class="inline-block text-sm leading-none text-white">
-            Profile
-        </a>
-        <a href="{{ path('app_logout') }}" class="inline-block text-sm leading-none text-white ml-6">
-            <i class="fa-solid fa-power-off"></i>
-        </a>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a href="{{ path('profile') }}" class="inline-block text-sm leading-none text-white">
+                Profile
+            </a>
+            <a href="{{ path('app_logout') }}" class="inline-block text-sm leading-none text-white ml-6">
+                <i class="fa-solid fa-power-off"></i>
+            </a>
+        {% else %}
+            <a href="{{ path('login') }}" class="inline-block text-sm leading-none text-white">
+                Log In
+            </a>
+            <a href="{{ path('register') }}" class="inline-block text-sm leading-none text-white ml-6">
+                Register
+            </a>
+        {% endif %}
     </div>
 </nav>
