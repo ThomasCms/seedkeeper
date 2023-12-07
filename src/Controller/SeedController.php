@@ -49,7 +49,8 @@ class SeedController extends AbstractController
     #[Route('/{id}', name: 'show_seed', methods: ['GET'])]
     public function show(Seed $seed): Response
     {
-        // TODO: voters
+        $this->denyAccessUnlessGranted('show', $seed);
+
         return $this->render('seed/show.html.twig', [
             'seed' => $seed,
         ]);
@@ -58,7 +59,8 @@ class SeedController extends AbstractController
     #[Route('/{id}/edit', name: 'edit_seed', methods: ['GET', 'POST'])]
     public function edit(Request $request, Seed $seed, EntityManagerInterface $entityManager): Response
     {
-        // TODO: voters
+        $this->denyAccessUnlessGranted('edit', $seed);
+
         $form = $this->createForm(SeedType::class, $seed);
         $form->handleRequest($request);
 
@@ -77,7 +79,8 @@ class SeedController extends AbstractController
     #[Route('/{id}', name: 'delete_seed', methods: ['POST'])]
     public function delete(Request $request, Seed $seed, EntityManagerInterface $entityManager): Response
     {
-        // TODO: voters
+        $this->denyAccessUnlessGranted('delete', $seed);
+
         if ($this->isCsrfTokenValid('delete'.$seed->getId(), $request->request->get('_token'))) {
             $entityManager->remove($seed);
             $entityManager->flush();
