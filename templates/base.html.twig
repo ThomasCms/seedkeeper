@@ -16,9 +16,7 @@
     </head>
     <body>
         {% block body %}
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                {% include('navbar.html.twig') %}
-            {% endif %}
+            {% include('navbar.html.twig') %}
 
             <div class="pt-[5vh]">
                 {% block body_content %}
