@@ -25,7 +25,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $this->userRepository = $userRepository;
     }
 
-    public function supports(Request $request): ?bool
+    public function supports(Request $request): bool
     {
         return ($request->getPathInfo() === '/login' && $request->isMethod('POST'));
     }
