@@ -22,3 +22,5 @@ sk-npm-dev
 ```
 
 optionally, you can refer to the symfony documentation to switch to prod mode instead of dev
+
+if you use prod mode, change the key from bin/secret-key by running the command : TODO. **WARNING :** running this command will prevent you from decrypting previously encrypted seeds
