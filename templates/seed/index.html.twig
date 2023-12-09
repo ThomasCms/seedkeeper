@@ -15,7 +15,7 @@
         <tbody>
         {% for seed in seeds %}
             <tr>
-                <td>{{ seed.text }}</td>
+                <td>{{ seed.text|decrypt }}</td>
                 <td>
                     <a href="{{ path('show_seed', {'id': seed.id}) }}">show</a>
                     <a href="{{ path('edit_seed', {'id': seed.id}) }}">edit</a>

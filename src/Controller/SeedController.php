@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Seed;
 use App\Form\SeedType;
 use App\Repository\SeedRepository;
+use App\Security\Cryptography\EncryptDecryptManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,9 +48,11 @@ class SeedController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show_seed', methods: ['GET'])]
-    public function show(Seed $seed): Response
+    public function show(Seed $seed, EncryptDecryptManager $encryptDecryptManager): Response
     {
         $this->denyAccessUnlessGranted('show', $seed);
+
+        $seed = $encryptDecryptManager->decryptSeed($seed);
 
         return $this->render('seed/show.html.twig', [
             'seed' => $seed,
@@ -57,9 +60,11 @@ class SeedController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit_seed', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Seed $seed, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Seed $seed, EntityManagerInterface $entityManager, EncryptDecryptManager $encryptDecryptManager): Response
     {
         $this->denyAccessUnlessGranted('edit', $seed);
+
+        $seed = $encryptDecryptManager->decryptSeed($seed);
 
         $form = $this->createForm(SeedType::class, $seed);
         $form->handleRequest($request);
