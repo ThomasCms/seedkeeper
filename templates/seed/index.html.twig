@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Title</th>
                 <th>Text</th>
                 <th>actions</th>
             </tr>
@@ -15,6 +16,7 @@
         <tbody>
         {% for seed in seeds %}
             <tr>
+                <td>{{ seed.title }}</td>
                 <td>{{ seed.text|decrypt }}</td>
                 <td>
                     <a href="{{ path('show_seed', {'id': seed.id}) }}">show</a>

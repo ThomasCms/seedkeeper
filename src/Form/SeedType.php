@@ -6,6 +6,7 @@ use App\Entity\Seed;
 use App\Security\Cryptography\EncryptDecryptManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -25,6 +26,7 @@ class SeedType extends AbstractType
         $encryptDecryptManager = $this->encryptDecryptManager;
 
         $builder
+            ->add('title', TextType::class)
             ->add('text', TextareaType::class, [
                 'attr' => [
                     'rows' => 3,
