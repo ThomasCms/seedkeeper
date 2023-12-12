@@ -26,6 +26,7 @@ class SeedFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($users as $user) {
             $seed = new Seed();
+            $seed->setTitle('My personal ledger wallet');
             $seed->setText($this->encryptDecryptManager->encryptString('one two three four five six seven eight nine ten eleven twelve'));
             $seed->setOwner($user);
 
