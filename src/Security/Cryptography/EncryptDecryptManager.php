@@ -6,6 +6,7 @@ use App\Entity\Seed;
 use Defuse\Crypto\Crypto;
 use Defuse\Crypto\Exception\WrongKeyOrModifiedCiphertextException;
 use Defuse\Crypto\Key;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class EncryptDecryptManager
 {
@@ -16,9 +17,9 @@ class EncryptDecryptManager
      * @throws \Defuse\Crypto\Exception\BadFormatException
      * @throws \Defuse\Crypto\Exception\EnvironmentIsBrokenException
      */
-    public function __construct()
+    public function __construct(KernelInterface $kernel)
     {
-        $keyAscii = file_get_contents(__DIR__ . '/../../../bin/secret-key');
+        $keyAscii = file_get_contents($kernel->getProjectDir() . '/bin/secret-key');
 
         $this->key = Key::loadFromAsciiSafeString($keyAscii);
     }
