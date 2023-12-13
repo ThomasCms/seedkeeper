@@ -14,14 +14,13 @@
         "doctrine/orm": "^2.16",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.24",
-        "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "6.4.*",
         "symfony/console": "6.4.*",
         "symfony/doctrine-messenger": "6.4.*",
         "symfony/dotenv": "6.4.*",
         "symfony/expression-language": "6.4.*",
         "symfony/filesystem": "6.4.*",
-        "symfony/flex": "^1.17|^2",
+        "symfony/flex": "^2",
         "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
         "symfony/http-client": "6.4.*",
@@ -46,8 +45,8 @@
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "6.4.*",
         "symfonycasts/verify-email-bundle": "^1.14",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/extra-bundle": "^3.0",
+        "twig/twig": "^3.0"
     },
     "config": {
         "allow-plugins": {
