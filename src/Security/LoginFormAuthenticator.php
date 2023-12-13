@@ -34,6 +34,14 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     {
         $email = $request->request->get('_username');
         $password = $request->request->get('_password');
+        $rememberMe = $request->request->get('_remember_me');
+        $badges = [
+            new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token'))
+        ];
+
+        if (!empty($rememberMe)) {
+            $badges[] = new RememberMeBadge();
+        }
 
         return new Passport(
             new UserBadge($email, function($userIdentifier) {
@@ -46,13 +54,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
                 return $user;
             }),
             new PasswordCredentials($password),
-            [
-                new CsrfTokenBadge(
-                    'authenticate',
-                    $request->request->get('_csrf_token')
-                ),
-                new RememberMeBadge(),
-            ]
+            $badges
         );
     }
 
