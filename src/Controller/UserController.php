@@ -68,6 +68,7 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $tokenStorage->setToken(null);
+            $request->getSession()->clear();
         }
 
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
