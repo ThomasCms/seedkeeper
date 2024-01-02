@@ -8,19 +8,19 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Title</th>
+                <th>{{ 'title'|trans }}</th>
                 <td>{{ seed.title }}</td>
             </tr>
             <tr>
-                <th>Text</th>
+                <th>{{ 'text'|trans }}</th>
                 <td>{{ seed.text }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('seed_index') }}">back to list</a>
+    <a href="{{ path('seed_index') }}">{{ 'back.list'|trans }}</a>
 
-    <a href="{{ path('edit_seed', {'id': seed.id}) }}">edit</a>
+    <a href="{{ path('edit_seed', {'id': seed.id}) }}">{{ 'edit.generic'|trans }}</a>
 
     {{ include('seed/_delete_form.html.twig') }}
 {% endblock %}

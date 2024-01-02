@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}{{ 'user.generic'|trans }}{% endblock %}
 
 {% block body_content %}
-    <h1>User</h1>
+    <h1>{{ 'user.generic'|trans }}</h1>
 
     <table class="table">
         <tbody>
@@ -14,7 +14,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('edit_user') }}">edit</a>
+    <a href="{{ path('edit_user') }}">{{ 'edit.generic'|trans }}</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

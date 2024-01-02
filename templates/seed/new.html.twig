@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Seed{% endblock %}
+{% block title %}{{ 'create.seed'|trans }}{% endblock %}
 
 {% block body_content %}
-    <h1>Create new Seed</h1>
+    <h1>{{ 'create.seed'|trans }}</h1>
 
     {{ include('seed/_form.html.twig') }}
 
-    <a href="{{ path('seed_index') }}">back to list</a>
+    <a href="{{ path('seed_index') }}">{{ 'back.list'|trans }}</a>
 {% endblock %}

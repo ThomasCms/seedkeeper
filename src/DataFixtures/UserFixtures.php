@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('admin@gmail.com');
         $user->setRoles(['ROLE_USER']);
+        $user->setLocale('fr');
         $user->setPassword($this->passwordHasherFactory->getPasswordHasher(User::class)->hash(self::DEFAULT_PASSWORD));
 
         $manager->persist($user);
