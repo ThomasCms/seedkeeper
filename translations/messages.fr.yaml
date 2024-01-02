@@ -1,0 +1,39 @@
+user:
+  password:
+    does_not_match: Les champs du mot de passe doivent correspondre.
+    empty: Entrez un mot de passe.
+    too_short: Votre mot de passe doit comporter au moins {limit} caractères.
+    label: 'Mot de passe'
+    repeat_label: 'Répétez le mot de passe'
+  generic: Utilisateur
+login:
+  failed: Echec de l'authentification
+  generic: Se connecter
+register: S'inscrire
+password: Mot de passe
+remember_me: Me maintenir connecté pendant 15 minutes
+delete:
+  confirmation: Êtes-vous sûr de vouloir supprimer ?
+  generic: Supprimer
+save: Sauvegarder
+back:
+  list: retour à la liste
+  profile: retour au profil
+update: Mettre à jour
+edit:
+  seed: Modifier la seed
+  user: Modifier l'utilisateur
+  generic: Modifier
+index:
+  seed: Liste des seeds
+title: Titre
+text: Texte
+actions: Actions
+show:
+  generic: Voir
+no_record: aucun enregistrement n'a été trouvé
+create:
+  seed: Créer une nouvelle seed
+  generic: Ajouter
+my_seeds: Mes Seeds
+profile: Profil
