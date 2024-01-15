@@ -3,6 +3,8 @@
 namespace App\Security;
 
 use App\Repository\UserRepository;
+use App\Service\SessionManager;
+use App\Service\Translator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +21,17 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
     private UserRepository $userRepository;
+    private SessionManager $sessionManager;
+    private Translator $translator;
 
-    public function __construct(UserRepository $userRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        SessionManager $sessionManager,
+        Translator $translator
+    ) {
         $this->userRepository = $userRepository;
+        $this->sessionManager = $sessionManager;
+        $this->translator = $translator;
     }
 
     public function supports(Request $request): bool
@@ -43,8 +52,18 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             $badges[] = new RememberMeBadge();
         }
 
+        $user = $this->userRepository->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+
+        $this->sessionManager->setLocaleInSession($request->getSession(), $user->getLocale());
+
         return new Passport(
             new UserBadge($email, function($userIdentifier) {
+                // I have no control over when this function will be executed and I have no idea how to avoid duplicating this request atm
+                // Feel free to give me suggestions
                 $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
 
                 if (!$user) {
@@ -67,7 +86,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     {
         $data = [
             // you may want to customize or obfuscate the message first
-            'message' => 'Login failed',
+            'message' => $this->translator->trans('login.failed'),
         ];
 
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
