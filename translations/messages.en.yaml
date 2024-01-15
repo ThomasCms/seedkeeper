@@ -1,0 +1,39 @@
+user:
+  password:
+    does_not_match: The password fields must match.
+    empty: Please enter a password.
+    too_short: Your password should be at least {limit} characters.
+    label: 'Password'
+    repeat_label: 'Repeat password'
+  generic: User
+login:
+  failed: Login failed
+  generic: Log In
+register: Register
+password: Password
+remember_me: Keep me logged in for 15 minutes
+delete:
+  confirmation: Are you sure you want to delete this ?
+  generic: Delete
+save: Save
+back:
+  list: back to list
+  profile: back to profile
+update: Update
+edit:
+  seed: Edit seed
+  user: Edit user
+  generic: Edit
+index:
+  seed: Seeds list
+title: Title
+text: Text
+actions: Actions
+show:
+  generic: Show
+no_record: no record found
+create:
+  seed: Create new seed
+  generic: Create new
+my_seeds: My Seeds
+profile: Profile

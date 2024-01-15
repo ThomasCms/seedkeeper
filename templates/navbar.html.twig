@@ -2,24 +2,30 @@
     <div class="ml-6 flex-10 items-center flex-shrink-0 text-white mr-6">
         <a href="{{ path('home') }}" class="font-semibold text-xl tracking-tight">SeedKeeper</a>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a href="{{ path('seed_index') }}" class="ml-6 tracking-tight">My Seeds</a>
+            <a href="{{ path('seed_index') }}" class="ml-6 tracking-tight">{{ 'my_seeds'|trans }}</a>
         {% endif %}
     </div>
 
     <div class="mr-6 flex-1 block flex-grow lg:flex lg:items-center lg:w-auto text-white">
+        <a href="#" class="inline-block text-sm leading-none text-white flag" data-flag="en">
+            🇬🇧
+        </a>
+        <a href="#" class="inline-block text-sm leading-none text-white ml-4 flag" data-flag="fr">
+            🇫🇷
+        </a>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a href="{{ path('profile') }}" class="inline-block text-sm leading-none text-white">
-                Profile
+            <a href="{{ path('profile') }}" class="inline-block text-sm leading-none text-white ml-6">
+                {{ 'profile'|trans }}
             </a>
             <a href="{{ path('app_logout') }}" class="inline-block text-sm leading-none text-white ml-6">
                 <i class="fa-solid fa-power-off"></i>
             </a>
         {% else %}
             <a href="{{ path('login') }}" class="inline-block text-sm leading-none text-white">
-                Log In
+                {{ 'login.generic'|trans }}
             </a>
             <a href="{{ path('register') }}" class="inline-block text-sm leading-none text-white ml-6">
-                Register
+                {{ 'register'|trans }}
             </a>
         {% endif %}
     </div>

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -34,6 +35,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Seed::class, orphanRemoval: true)]
     private Collection $seeds;
+
+    #[Assert\Choice(['en', 'fr'])]
+    #[ORM\Column(length: 2)]
+    private ?string $locale = 'en';
 
     public function __construct()
     {
@@ -146,6 +151,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $seed->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): static
+    {
+        $this->locale = $locale;
 
         return $this;
     }

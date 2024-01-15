@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Service\Translator;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -14,28 +16,41 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
+    private Translator $translator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => $this->translator->trans('user.password.does_not_match'),
                 'required' => true,
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => $this->translator->trans('user.password.empty'),
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => $this->translator->trans('user.password.too_short', ['{limit}' => 8]),
                         'max' => 4096,
                     ]),
                 ],
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => $this->translator->trans('user.password.label')],
+                'second_options' => ['label' => $this->translator->trans('user.password.repeat_label')],
+            ])
+            ->add('locale', ChoiceType::class, [
+                'choices'  => [
+                    '🇬🇧 English' => 'en',
+                    '🇫🇷 Français' => 'fr',
+                ]
             ])
         ;
     }
