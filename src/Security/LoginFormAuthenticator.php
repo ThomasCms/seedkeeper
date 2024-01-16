@@ -6,8 +6,10 @@ use App\Repository\UserRepository;
 use App\Service\SessionManager;
 use App\Service\Translator;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -17,21 +19,27 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
+    use TargetPathTrait;
+
     private UserRepository $userRepository;
     private SessionManager $sessionManager;
     private Translator $translator;
+    private UrlGenerator $urlGenerator;
 
     public function __construct(
         UserRepository $userRepository,
         SessionManager $sessionManager,
-        Translator $translator
+        Translator $translator,
+        UrlGenerator $urlGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->sessionManager = $sessionManager;
         $this->translator = $translator;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function supports(Request $request): bool
@@ -79,7 +87,14 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return null;
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
+        }
+
+        // TODO: watch https://symfony.com/doc/6.4/security.html#login-programmatically && https://symfonycasts.com/screencast/symfony4-security/registration-auth
+        // Next steps: display qrcode successfully after register. Then create and display recover codes
+
+        return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
