@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -28,13 +28,13 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     private UserRepository $userRepository;
     private SessionManager $sessionManager;
     private Translator $translator;
-    private UrlGenerator $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         UserRepository $userRepository,
         SessionManager $sessionManager,
         Translator $translator,
-        UrlGenerator $urlGenerator
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->sessionManager = $sessionManager;
@@ -90,9 +90,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
-        // TODO: watch https://symfony.com/doc/6.4/security.html#login-programmatically && https://symfonycasts.com/screencast/symfony4-security/registration-auth
-        // Next steps: display qrcode successfully after register. Then create and display recover codes
 
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
