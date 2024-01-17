@@ -6,6 +6,7 @@ user:
     label: 'Mot de passe'
     repeat_label: 'Répétez le mot de passe'
   generic: Utilisateur
+  2fa: Activer la double authentification
 login:
   failed: Echec de l'authentification
   generic: Se connecter

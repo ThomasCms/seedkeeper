@@ -1,0 +1,12 @@
+scheb_two_factor:
+    security_tokens:
+        - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+        - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
+    google:
+      enabled: true
+      server_name: SeedKeeper
+      issuer: SeedKeeper
+      digits: 6
+      leeway: 2 # Must be less or equal than 30 seconds
+    backup_codes:
+      enabled: true

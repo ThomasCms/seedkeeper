@@ -6,6 +6,7 @@ user:
     label: 'Password'
     repeat_label: 'Repeat password'
   generic: User
+  2fa: Enable 2FA
 login:
   failed: Login failed
   generic: Log In

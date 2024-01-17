@@ -11,6 +11,7 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.locale) }}
+        {{ form_row(registrationForm.googleAuthenticatorSecret) }}
 
         <button type="submit" class="btn">{{ 'register'|trans }}</button>
     {{ form_end(registrationForm) }}
